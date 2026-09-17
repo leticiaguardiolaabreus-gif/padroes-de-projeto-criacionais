@@ -8,14 +8,17 @@ public class ConfigurationManager {
     private static ConfigurationManager instance;
     private final Map<String, String> configData;
 
-    // TODO: Tornar o construtor privado e inicializar o mapa
-    public ConfigurationManager() {
+    private ConfigurationManager() {
+
         this.configData = new HashMap<>();
     }
 
-    // TODO: Criar o ponto de acesso global estático e thread-safe (getInstance)
+
     public static ConfigurationManager getInstance() {
-        return null;
+        if (instance == null){
+            instance = new ConfigurationManager();
+        }
+        return instance;
     }
 
     public String getProperty(String key) {
@@ -26,3 +29,16 @@ public class ConfigurationManager {
         this.configData.put(key, value);
     }
 }
+
+class ConfigurationManagerapp{
+    public static void main(String[] args){
+        ConfigurationManager config1 = ConfigurationManager.getInstance();
+        ConfigurationManager config2 = ConfigurationManager.getInstance();
+        config1.setProperty("appName", "Meu Sistema Java");
+
+        System.out.println("Nome do App: " + config1.getProperty("appName"));
+
+        System.out.println("Lido via config2: " + config2.getProperty("appName"));
+        System.out.println("Mesma instância em memória? " + (config1 == config2));
+    }
+    }
