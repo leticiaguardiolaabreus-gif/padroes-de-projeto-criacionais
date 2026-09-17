@@ -12,33 +12,35 @@ interface InvoiceTax {
 // Concretos Brasil
 class PixPayment implements PaymentProcessor {
     @Override
-    public void process(double amount) { /* TODO */ }
+    public void process(double amount) {
+        System.out.println("processamento em Pix");
+    }
 }
 
 class BrazilTax implements InvoiceTax {
     @Override
     public double calculateTax(double amount) {
-        // TODO: Retornar imposto de 15%
-        return 0.0;
+       double valor = (amount*0.15);
+        return  Math.round(valor);
     }
 }
 
 // Concretos EUA
 class CreditCardUSAPayment implements PaymentProcessor {
     @Override
-    public void process(double amount) { /* TODO */ }
+    public void process(double amount) { System.out.println("processamento em USA credit card");  }
 }
 
 class USATax implements InvoiceTax {
     @Override
     public double calculateTax(double amount) {
-        // TODO: Retornar imposto de 7%
-        return 0.0;
+        double valor = (amount*0.07);
+        return Math.round(valor);
     }
 }
 
 // Abstract Factory
-public interface FinancialFactory {
+interface FinancialFactory {
     PaymentProcessor createPaymentProcessor();
     InvoiceTax createInvoiceTax();
 }
@@ -46,27 +48,48 @@ public interface FinancialFactory {
 class BrazilFinancialFactory implements FinancialFactory {
     @Override
     public PaymentProcessor createPaymentProcessor() {
-        // TODO
-        return null;
+
+        return new PixPayment();
     }
 
     @Override
     public InvoiceTax createInvoiceTax() {
-        // TODO
-        return null;
+
+        return new BrazilTax();
     }
 }
 
 class USAFinancialFactory implements FinancialFactory {
     @Override
     public PaymentProcessor createPaymentProcessor() {
-        // TODO
-        return null;
+
+        return new CreditCardUSAPayment();
     }
 
     @Override
     public InvoiceTax createInvoiceTax() {
-        // TODO
-        return null;
+
+        return new USATax();
     }
-} 
+}
+
+public class FinancialFactoryApp {
+
+    public static void main(String[] args) {
+        // Testando a fábrica do Brasil
+        FinancialFactory brazilFactory = new BrazilFinancialFactory();
+        PaymentProcessor pix = brazilFactory.createPaymentProcessor();
+        InvoiceTax brazilTax = brazilFactory.createInvoiceTax();
+
+        pix.process(100.0);
+        System.out.println("Imposto BR: " + brazilTax.calculateTax(100.0));
+
+        // Testando a fábrica dos EUA
+        FinancialFactory usaFactory = new USAFinancialFactory();
+        PaymentProcessor card = usaFactory.createPaymentProcessor();
+        InvoiceTax usaTax = usaFactory.createInvoiceTax();
+
+        card.process(100.0);
+        System.out.println("Imposto USA: " + usaTax.calculateTax(100.0));
+    }
+}
