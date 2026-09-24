@@ -8,14 +8,14 @@ interface Document {
 class PDFDocument implements Document {
     @Override
     public void export(String content) {
-        // TODO: Implementar lógica de exportação PDF
+        System.out.println("expotando via PDF...");
     }
 }
 
 class CSVDocument implements Document {
     @Override
     public void export(String content) {
-        // TODO: Implementar lógica de exportação CSV
+        System.out.println("expotando via CSV...");
     }
 }
 
@@ -28,22 +28,32 @@ public abstract class DocumentExporter {
         if (data == null) {
             throw new IllegalArgumentException("Dados inválidos");
         }
-        // TODO: Criar o documento e exportar os dados
+        Document documento = createDocument();
+        documento.export(data);
     }
 }
 
 class PDFExporter extends DocumentExporter {
     @Override
     protected Document createDocument() {
-        // TODO: Retornar o PDFDocument
-        return null;
+        return new PDFDocument();
     }
 }
 
 class CSVExporter extends DocumentExporter {
     @Override
     protected Document createDocument() {
-        // TODO: Retornar o CSVDocument
-        return null;
+        return new CSVDocument();
+    }
+}
+
+
+class DocumentExporterApp {
+    public static void main(String[] args){
+
+        DocumentExporter pdf = new PDFExporter();
+        pdf.processReport("Relatório de Vendas - Janeiro 2026");
+        DocumentExporter csv = new CSVExporter();
+        csv.processReport("ID;NOME;VALOR\n1;João;100.0");
     }
 }
