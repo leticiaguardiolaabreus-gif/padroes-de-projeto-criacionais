@@ -6,6 +6,9 @@
       <sourceFolder url="file://$MODULE_DIR$/abstractFactory" isTestSource="false" packagePrefix="padroes_criacionais" />
       <sourceFolder url="file://$MODULE_DIR$/factotyMethod" isTestSource="false" packagePrefix="padroes_criacionais" />
       <sourceFolder url="file://$MODULE_DIR$/singleton" isTestSource="false" packagePrefix="padroes_criacionais" />
+      <sourceFolder url="file://$MODULE_DIR$/Prototype" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/builder" isTestSource="false" />
+      <sourceFolder url="file://$MODULE_DIR$/prototype" isTestSource="false" />
     </content>
     <orderEntry type="inheritedJdk" />
     <orderEntry type="sourceFolder" forTests="false" />
